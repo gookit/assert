@@ -60,7 +60,7 @@ func TestAssertions_Chain(t *testing.T) {
 }
 
 func TestAssertions_chain_fail(t *testing.T) {
-	assert.HideFullPath()
+	assert.ShowFullPath = false
 	defer func() {
 		assert.ShowFullPath = true
 	}()

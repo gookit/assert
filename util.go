@@ -114,7 +114,7 @@ func callerInfos() []string {
 		}
 
 		fcName := fc.Name()
-		if fcName == "testing.tRunner" || strings.Contains(fcName, "/assertx.") {
+		if fcName == "testing.tRunner" || strings.Contains(fcName, "gookit/assert.") {
 			continue
 		}
 
@@ -161,11 +161,6 @@ var (
 	// EnableColor on show error trace
 	// EnableColor = true
 )
-
-// HideFullPath render
-func HideFullPath() {
-	ShowFullPath = false
-}
 
 // fail reports a failure through
 func fail(t TestingT, failMsg string, fmtAndArgs []any) bool {

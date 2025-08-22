@@ -100,10 +100,10 @@ func TestCommon_fail(t *testing.T) {
 	assert.Nil(tc, 1)
 	str := tc.First()
 	assert.StrContains(t, str, "TestCommon_fail")
-	assert.StrContains(t, str, "goutil/testutil/assert/asserts_test.go:")
+	assert.StrContains(t, str, "gookit/assert/assert_test.go:")
 	assert.StrContains(t, str, "Expected nil, but got:")
 	assert.StrNotContains(t, str, "NOT EXIST")
-	assert.StrContainsAll(t, str, []string{"goutil", "testutil"})
+	assert.StrContainsAll(t, str, []string{"gookit", "assert_test"})
 	tc.Reset()
 
 	assert.NotNil(tc, nil)
@@ -287,11 +287,11 @@ func TestCommon_fail(t *testing.T) {
 }
 
 func TestFileSystem(t *testing.T) {
-	assert.FileExists(t, "asserts.go")
+	assert.FileExists(t, "assert.go")
 	assert.FileNotExists(t, "testdata/file1.txt")
 
 	// dir
-	assert.DirExists(t, "../_example")
+	assert.DirExists(t, ".github")
 	assert.DirNotExists(t, "testdata/dir1")
 }
 

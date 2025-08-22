@@ -54,7 +54,7 @@ func checkContains(data, elem any) (valid, found bool) {
 	if dataKind == reflect.Map {
 		mapKeys := dataRv.MapKeys()
 		for i := 0; i < len(mapKeys); i++ {
-			if isEqual(mapKeys[i].Interface(), elem) {
+			if reflectIsEqual(mapKeys[i].Interface(), elem) {
 				return true, true
 			}
 		}
@@ -67,35 +67,11 @@ func checkContains(data, elem any) (valid, found bool) {
 	}
 
 	for i := 0; i < dataRv.Len(); i++ {
-		if isEqual(dataRv.Index(i).Interface(), elem) {
+		if reflectIsEqual(dataRv.Index(i).Interface(), elem) {
 			return true, true
 		}
 	}
 	return true, false
-}
-
-// IsEqual determines if two objects are considered equal.
-//
-// TIP: cannot compare function type
-func isEqual(src, dst any) bool {
-	if src == nil || dst == nil {
-		return src == dst
-	}
-
-	bs1, ok := src.([]byte)
-	if !ok {
-		return reflect.DeepEqual(src, dst)
-	}
-
-	bs2, ok := dst.([]byte)
-	if !ok {
-		return false
-	}
-
-	if bs1 == nil || bs2 == nil {
-		return bs1 == nil && bs2 == nil
-	}
-	return bytes.Equal(bs1, bs2)
 }
 
 //
@@ -142,11 +118,6 @@ func mathCompare(first, second any, op string) bool {
 	}
 
 	return false
-}
-
-// CompInt compare all intX,uintX type value. returns `first op(=,!=,<,<=,>,>=) second`
-func mathCompInt[T Xint](first, second T, op string) (ok bool) {
-	return mathCompValue(first, second, op)
 }
 
 // CompInt64 compare int64 value. returns `first op(=,!=,<,<=,>,>=) second`
@@ -288,16 +259,6 @@ func toFloatWith(in any) (f64 float64, err error) {
 // - from github.com/gookit/goutil/arrutil
 //
 
-// StringsContains check string slice contains string
-func stringsContains(ss []string, s string) bool {
-	for _, v := range ss {
-		if v == s {
-			return true
-		}
-	}
-	return false
-}
-
 // AnyToSlice convert any(allow: array,slice) to []any
 func anyToSlice(sl any) (ls []any, err error) {
 	rfKeys := reflect.ValueOf(sl)
@@ -312,7 +273,7 @@ func anyToSlice(sl any) (ls []any, err error) {
 }
 
 // IsSubList check given values is sub-list of sample list.
-func arrContainsAll[T ScalarType](values, list []T) bool {
+func arrContainsAll[T ScalarType](list, values []T) bool {
 	for _, value := range values {
 		if !inArray(value, list) {
 			return false

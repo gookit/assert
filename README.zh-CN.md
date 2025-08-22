@@ -1,5 +1,11 @@
 # Assert
 
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/gookit/assert?style=flat-square)
+[![GoDoc](https://godoc.org/github.com/gookit/assert?status.svg)](https://pkg.go.dev/github.com/gookit/assert)
+[![Actions Status](https://github.com/gookit/assert/workflows/Unit-Tests/badge.svg)](https://github.com/gookit/assert/actions)
+[![Coverage Status](https://coveralls.io/repos/github/gookit/assert/badge.svg?branch=master)](https://coveralls.io/github/gookit/assert?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/gookit/assert)](https://goreportcard.com/report/github.com/gookit/assert)
+
 ✅ 工具包 `gookit/assert` 提供了一些常用的 Go 单元测试中用于断言的工具函数。
 
 - 使用非常简单 eg: `assert.Eq(t, want, give)` `assert.Err(t, err)`
@@ -13,6 +19,10 @@
 ```bash
 go get github.com/gookit/assert
 ```
+
+## [English](README.md)
+
+English introduction, please see **[EN README](README.md)**
 
 ## GoDocs
 
@@ -65,7 +75,6 @@ func FileExists(t TestingT, filePath string, fmtAndArgs ...any) bool
 func FileNotExists(t TestingT, filePath string, fmtAndArgs ...any) bool
 func Gt(t TestingT, give, min any, fmtAndArgs ...any) bool
 func Gte(t TestingT, give, min any, fmtAndArgs ...any) bool
-func HideFullPath()
 func IsKind(t TestingT, wantKind reflect.Kind, give any, fmtAndArgs ...any) bool
 func IsType(t TestingT, wantType, give any, fmtAndArgs ...any) bool
 func Len(t TestingT, give any, wantLn int, fmtAndArgs ...any) bool

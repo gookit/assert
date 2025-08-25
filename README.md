@@ -8,6 +8,12 @@
 
 Package `gookit/assert` provides some of the commonly used tool functions for assertions in Go unit tests.
 
+- It's very simple to use. eg: `assert.Eq(t, want, give)` `assert.Err(t, err)`
+- Very lightweight and no external dependency libraries.
+- Supports go `1.18+`
+
+> The code itself comes from the `testutil/assert` package under [gookit/goutil](https://github.com/gookit/goutil).
+
 ## Install
 
 ```bash

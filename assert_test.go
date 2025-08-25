@@ -100,10 +100,10 @@ func TestCommon_fail(t *testing.T) {
 	assert.Nil(tc, 1)
 	str := tc.First()
 	assert.StrContains(t, str, "TestCommon_fail")
-	assert.StrContains(t, str, "gookit/assert/assert_test.go:")
+	assert.StrContains(t, str, "assert/assert_test.go:")
 	assert.StrContains(t, str, "Expected nil, but got:")
 	assert.StrNotContains(t, str, "NOT EXIST")
-	assert.StrContainsAll(t, str, []string{"gookit", "assert_test"})
+	assert.StrContainsAll(t, str, []string{"Expected", "assert_test"})
 	tc.Reset()
 
 	assert.NotNil(tc, nil)

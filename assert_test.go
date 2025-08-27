@@ -60,6 +60,13 @@ func TestCommon_success(t *testing.T) {
 	assert.Eq(t, nil, nil)
 	assert.Equal(t, 1, 1)
 
+	// strEq
+	assert.StrEq(t, "abc 123", "abc 123")
+	assert.StrEq(t, "abc 123", "abc %d", 123)
+	assert.StrEq(t, "123", 123)
+	assert.StrEq(t, "[ab 12]", []string{"ab", "12"})
+	assert.StrEq(t, "[ab 12] cd34", []string{"ab", "12"}, "cd", 34)
+
 	// neq
 	assert.Neq(t, 1, 2)
 	assert.NotEq(t, 1, 2)

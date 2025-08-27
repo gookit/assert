@@ -1,7 +1,7 @@
 // Package assert provides some tool functions for use with the Go testing.
 //
 // inspired the package:
-//  - github.com/gookit/goutil/testutil/assert see https://github.com/gookit/goutil
+//   - github.com/gookit/goutil/testutil/assert see https://github.com/gookit/goutil
 package assert
 
 import (
@@ -164,6 +164,11 @@ func PanicsErrMsg(t TestingT, fn PanicRunFunc, errMsg string, fmtAndArgs ...any)
 
 	return true
 }
+
+//
+// region Contains
+// -------------------- Contains --------------------
+//
 
 // Contains asserting that the given data(string,slice,map) should contain element
 //
@@ -354,6 +359,7 @@ func StrCount(t TestingT, s, sub string, count int, fmtAndArgs ...any) bool {
 }
 
 //
+// region Filesystem
 // -------------------- filesystem --------------------
 //
 
@@ -394,6 +400,7 @@ func DirNotExists(t TestingT, dirPath string, fmtAndArgs ...any) bool {
 }
 
 //
+// region Error
 // -------------------- error --------------------
 //
 
@@ -484,6 +491,7 @@ func ErrSubMsg(t TestingT, err error, subMsg string, fmtAndArgs ...any) bool {
 }
 
 //
+// region Length
 // -------------------- Len --------------------
 //
 
@@ -518,6 +526,7 @@ func LenGt(t TestingT, give any, minLn int, fmtAndArgs ...any) bool {
 }
 
 //
+// region Compare
 // -------------------- compare --------------------
 //
 
@@ -549,6 +558,33 @@ func Eq(t TestingT, want, give any, fmtAndArgs ...any) bool {
 	}
 
 	return true
+}
+
+// StrEq asserts that the given string/any should be equal to the want string.
+//
+// Example:
+//
+//	var giveStr string
+//	assert.StrEq(t, "hello", giveStr)
+//	// or as format with args
+//	assert.StrEq(t, "hello, someone", "%s, %s", arg1, arg2)
+func StrEq(t TestingT, want string, giveOrFormat any, args ...any) bool {
+	t.Helper()
+
+	giveStr, ok := giveOrFormat.(string)
+	if ok {
+		// give string is a format string with args
+		if len(args) > 0 {
+			giveStr = fmt.Sprintf(giveStr, args...)
+		}
+	} else {
+		// other types, use fmt.Sprint format
+		giveStr = fmt.Sprint(giveOrFormat)
+		if len(args) > 0 {
+			giveStr = giveStr + " " + fmt.Sprint(args...)
+		}
+	}
+	return Eq(t, want, giveStr)
 }
 
 // Neq asserts that the want should not be equal to the given.
@@ -690,6 +726,7 @@ func NotSame(t TestingT, want, actual any, fmtAndArgs ...any) bool {
 }
 
 //
+// region Failure
 // -------------------- fail --------------------
 //
 

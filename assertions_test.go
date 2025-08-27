@@ -47,6 +47,7 @@ func TestAssertions_Chain(t *testing.T) {
 		NoErr(nil).
 		NoError(nil).
 		Nil(nil).
+		StrEq("hi", "hi").
 		ContainsKey(map[string]int{"a": 1}, "a")
 
 	assert.True(t, as.IsOk())
@@ -66,14 +67,15 @@ func TestAssertions_chain_fail(t *testing.T) {
 	}()
 
 	tc := &tCustomTesting{T: t}
-	ts := assert.New(tc)
+	is := assert.New(tc)
 
-	ts.Fail("fail message")
+	is.Fail("fail message")
 	str := tc.ResetGet()
+	// fmt.Println(str)
 	assert.StrContains(t, str, "fail message")
 	assert.StrContains(t, str, "assertions_test.go")
-	assert.NotContains(t, str, "testutil/assert/assertions_test.go")
+	assert.NotContains(t, str, "some/assert/assertions_test.go")
 
-	ts.FailNow("fail now message")
+	is.FailNow("fail now message")
 	assert.StrContains(t, tc.ResetGet(), "fail now message")
 }

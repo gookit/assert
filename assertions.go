@@ -9,9 +9,7 @@ type Assertions struct {
 }
 
 // New makes a new Assertions object for the specified TestingT.
-func New(t TestingT) *Assertions {
-	return &Assertions{t: t}
-}
+func New(t TestingT) *Assertions { return &Assertions{t: t} }
 
 // WithMsg set with prefix message.
 func (as *Assertions) WithMsg(msg string) *Assertions {
@@ -20,14 +18,10 @@ func (as *Assertions) WithMsg(msg string) *Assertions {
 }
 
 // IsOk for last check
-func (as *Assertions) IsOk() bool {
-	return as.ok
-}
+func (as *Assertions) IsOk() bool { return as.ok }
 
 // IsFail for last check
-func (as *Assertions) IsFail() bool {
-	return !as.ok
-}
+func (as *Assertions) IsFail() bool { return !as.ok }
 
 // Nil asserts that the given is a nil value
 func (as *Assertions) Nil(give any, fmtAndArgs ...any) *Assertions {
@@ -113,14 +107,14 @@ func (as *Assertions) NotContains(src, elem any, fmtAndArgs ...any) *Assertions 
 	return as
 }
 
-// ContainsKey asserts that the given map is contains key
+// ContainsKey asserts that the given map is containing key
 func (as *Assertions) ContainsKey(mp, key any, fmtAndArgs ...any) *Assertions {
 	as.t.Helper()
 	as.ok = ContainsKey(as.t, mp, key, fmtAndArgs...)
 	return as
 }
 
-// StrContains asserts that the given strings is contains sub-string
+// StrContains asserts that the given strings is containing sub-string
 func (as *Assertions) StrContains(s, sub string, fmtAndArgs ...any) *Assertions {
 	as.t.Helper()
 	as.ok = StrContains(as.t, s, sub, fmtAndArgs...)
@@ -221,12 +215,17 @@ func (as *Assertions) NotEq(want, give any, fmtAndArgs ...any) *Assertions {
 	return as
 }
 
-// NotEqual asserts that the want should not be equal to the given
-//
-// Alias of NotEq()
+// NotEqual asserts that the want should not be equal to the given value. Alias of NotEq()
 func (as *Assertions) NotEqual(want, give any, fmtAndArgs ...any) *Assertions {
 	as.t.Helper()
 	as.ok = NotEq(as.t, want, give, fmtAndArgs...)
+	return as
+}
+
+// StrEq asserts that the want should be equal to the given string. Alias of StrEq()
+func (as *Assertions) StrEq(want, giveOrFormat string, args ...any) *Assertions {
+	as.t.Helper()
+	as.ok = StrEq(as.t, want, giveOrFormat, args...)
 	return as
 }
 

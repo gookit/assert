@@ -1,7 +1,7 @@
 # Assert
 
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/gookit/assert?style=flat-square)
-[![GoDoc](https://godoc.org/github.com/gookit/assert?status.svg)](https://pkg.go.dev/github.com/gookit/assert)
+[![GoDoc](https://pkg.go.dev/badge/github.com/gookit/assert.svg)](https://pkg.go.dev/github.com/gookit/assert)
 [![Actions Status](https://github.com/gookit/assert/workflows/Unit-Tests/badge.svg)](https://github.com/gookit/assert/actions)
 [![Coverage Status](https://coveralls.io/repos/github/gookit/assert/badge.svg?branch=master)](https://coveralls.io/github/gookit/assert?branch=master)
 [![Go Report Card](https://goreportcard.com/badge/github.com/gookit/assert)](https://goreportcard.com/report/github.com/gookit/assert)
@@ -48,9 +48,36 @@ func TestErr(t *testing.T) {
 }
 ```
 
+### Mock Environment
+
+```go
+assert.MockOsEnvByText(`
+	APP_COMMAND = login
+	APP_ENV = dev
+	APP_DEBUG = true
+`, func() {
+		// do something ...
+})
+```
+
 ## Function API
 
 > generate by: `go doc .`
+
+### Help Testing
+
+```go
+func MockEnvValue(key, val string, fn func(nv string))
+func MockOsEnv(mp map[string]string, fn func())
+func MockOsEnvByText(envText string, fn func())
+
+type Buffer struct{ ... }
+    func NewBuffer() *Buffer
+type SafeBuffer struct{ ... }
+    func NewSafeBuffer() *SafeBuffer
+```
+
+### Assert Functions
 
 ```go
 func Contains(t TestingT, src, elem any, fmtAndArgs ...any) bool

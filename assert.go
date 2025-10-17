@@ -568,10 +568,10 @@ func Eq(t TestingT, want, give any, fmtAndArgs ...any) bool {
 //	assert.StrEq(t, "hello", giveStr)
 //	// or as format with args
 //	assert.StrEq(t, "hello, someone", "%s, %s", arg1, arg2)
-func StrEq(t TestingT, want string, giveOrFormat any, args ...any) bool {
+func StrEq(t TestingT, want string, valOrFmt any, args ...any) bool {
 	t.Helper()
 
-	giveStr, ok := giveOrFormat.(string)
+	giveStr, ok := valOrFmt.(string)
 	if ok {
 		// give string is a format string with args
 		if len(args) > 0 {
@@ -579,7 +579,7 @@ func StrEq(t TestingT, want string, giveOrFormat any, args ...any) bool {
 		}
 	} else {
 		// other types, use fmt.Sprint format
-		giveStr = fmt.Sprint(giveOrFormat)
+		giveStr = fmt.Sprint(valOrFmt)
 		if len(args) > 0 {
 			giveStr = giveStr + " " + fmt.Sprint(args...)
 		}

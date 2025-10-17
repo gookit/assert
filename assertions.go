@@ -223,9 +223,9 @@ func (as *Assertions) NotEqual(want, give any, fmtAndArgs ...any) *Assertions {
 }
 
 // StrEq asserts that the want should be equal to the given string. Alias of StrEq()
-func (as *Assertions) StrEq(want, giveOrFormat string, args ...any) *Assertions {
+func (as *Assertions) StrEq(want, valOrFmt string, args ...any) *Assertions {
 	as.t.Helper()
-	as.ok = StrEq(as.t, want, giveOrFormat, args...)
+	as.ok = StrEq(as.t, want, valOrFmt, args...)
 	return as
 }
 

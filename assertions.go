@@ -277,3 +277,23 @@ func (as *Assertions) FailNow(failMsg string, fmtAndArgs ...any) *Assertions {
 	as.ok = FailNow(as.t, failMsg, fmtAndArgs...)
 	return as
 }
+
+// Must asserts that the given condition is true. Alias of Require().
+func (as *Assertions) Must(condition bool, fmtAndArgs ...any) *Assertions {
+	as.t.Helper()
+	as.ok = condition
+	if !condition {
+		FailNow(as.t, "Required", fmtAndArgs...)
+	}
+	return as
+}
+
+// Require asserts that the given condition is true; a false condition stops the test.
+func (as *Assertions) Require(condition bool, fmtAndArgs ...any) *Assertions {
+	as.t.Helper()
+	as.ok = condition
+	if !condition {
+		FailNow(as.t, "Required", fmtAndArgs...)
+	}
+	return as
+}

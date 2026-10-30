@@ -332,3 +332,31 @@ func TestContains(t *testing.T) {
 	assert.ContainsElems(t, []string{"def"}, []string{"def"})
 	assert.ContainsElems(t, []string{"def", "abc"}, []string{"def"})
 }
+
+func TestRequire(t *testing.T) {
+	tc := &tCustomTesting{T: t}
+
+	// a true condition passes without a failure
+	assert.Require(tc, true)
+	assert.Equal(t, "", tc.ResetGet())
+
+	// a false condition reports "Required" and calls FailNow
+	assert.Require(tc, false)
+	assert.StrContains(t, tc.ResetGet(), "Required")
+
+	// Must is an alias, and passes a custom message through
+	assert.Must(tc, false, "custom message")
+	assert.StrContains(t, tc.ResetGet(), "custom message")
+
+	// the Assertions methods
+	as := assert.New(tc)
+	as.Require(true)
+	assert.True(t, as.IsOk())
+
+	as.Require(false)
+	assert.False(t, as.IsOk())
+	assert.StrContains(t, tc.ResetGet(), "Required")
+
+	as.Must(true)
+	assert.True(t, as.IsOk())
+}

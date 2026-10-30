@@ -746,3 +746,37 @@ func FailNow(t TestingT, failMsg string, fmtAndArgs ...any) bool {
 	}
 	return false
 }
+
+//
+// region Required
+// -------------------- required --------------------
+//
+
+// Must asserts that the given condition is true. Alias of Require().
+//
+// If it is not, it reports the failure and calls t.FailNow() to stop the test.
+//
+// Usage:
+//
+//	assert.Must(t, assert.True(false))
+func Must(t TestingT, condition bool, fmtAndArgs ...any) {
+	t.Helper()
+	if !condition {
+		FailNow(t, "Required", fmtAndArgs...)
+	}
+}
+
+// Require asserts that the given condition is true.
+//
+// If it is not, it reports the failure and calls t.FailNow() to stop the test, so the
+// remaining checks do not run against a broken state.
+//
+// Usage:
+//
+//	assert.Require(t, assert.True(false))
+func Require(t TestingT, condition bool, fmtAndArgs ...any) {
+	t.Helper()
+	if !condition {
+		FailNow(t, "Required", fmtAndArgs...)
+	}
+}

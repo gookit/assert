@@ -108,6 +108,7 @@ func Len(t TestingT, give any, wantLn int, fmtAndArgs ...any) bool
 func LenGt(t TestingT, give any, minLn int, fmtAndArgs ...any) bool
 func Lt(t TestingT, give, max any, fmtAndArgs ...any) bool
 func Lte(t TestingT, give, max any, fmtAndArgs ...any) bool
+func Must(t TestingT, condition bool, fmtAndArgs ...any)
 func Neq(t TestingT, want, give any, fmtAndArgs ...any) bool
 func Nil(t TestingT, give any, fmtAndArgs ...any) bool
 func NoErr(t TestingT, err error, fmtAndArgs ...any) bool
@@ -124,6 +125,7 @@ func NotSame(t TestingT, want, actual any, fmtAndArgs ...any) bool
 func Panics(t TestingT, fn PanicRunFunc, fmtAndArgs ...any) bool
 func PanicsErrMsg(t TestingT, fn PanicRunFunc, errMsg string, fmtAndArgs ...any) bool
 func PanicsMsg(t TestingT, fn PanicRunFunc, wantVal any, fmtAndArgs ...any) bool
+func Require(t TestingT, condition bool, fmtAndArgs ...any)
 func Same(t TestingT, wanted, actual any, fmtAndArgs ...any) bool
 func StrContains(t TestingT, s, sub string, fmtAndArgs ...any) bool
 func StrContainsAll(t TestingT, s string, subs []string, fmtAndArgs ...any) bool
